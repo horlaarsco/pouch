@@ -1,24 +1,22 @@
-import { addRxPlugin } from "rxdb";
-import { createRxDatabase } from "rxdb";
+import * as dotenv from "dotenv";
+import express from "express";
+import { createRxDatabase, addRxPlugin } from "rxdb";
 import { RxDBServerPlugin } from "rxdb/plugins/server";
 import * as MemoryAdapter from "pouchdb-adapter-memory";
-import * as dotenv from "dotenv";
-import * as express from "express";
+
 addRxPlugin(RxDBServerPlugin);
 addRxPlugin(MemoryAdapter);
-
 dotenv.config();
 
 const mySchema = {
   version: 0,
   type: "object",
   properties: {
-    key: {
+    todo: {
       type: "string",
-      primary: true,
     },
-    value: {
-      type: "string",
+    status: {
+      type: "boolean",
     },
   },
 };
@@ -30,28 +28,29 @@ const mySchema = {
   });
 
   await db.collection({
-    name: "messages",
+    name: "todo",
     schema: mySchema,
   });
 
-  await db.messages.insert({
-    key: "foo",
-    value: "bar",
+  await db.todo.insert({
+    todo: "Eat",
+    status: true,
   });
 
   const { app, server } = db.server({
     startServer: false,
     cors: true,
+    pouchdbExpressOptions: {
+      inMemoryConfig: true,
+    },
   });
 
   const mainApp = express();
 
   mainApp.use("/", app);
   mainApp.listen(process.env.PORT, () =>
-    console.log(`Server listening on port 3000`)
+    console.log(`Server listening on port ${process.env.PORT}`)
   );
-
-  console.log("Server should run now..." + process.env.PORT);
 })().catch((e) => {
   console.error("error on custom code", e);
 });

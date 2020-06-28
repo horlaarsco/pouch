@@ -1,4 +1,23 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,13 +54,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-exports.__esModule = true;
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var dotenv = __importStar(require("dotenv"));
+var express_1 = __importDefault(require("express"));
 var rxdb_1 = require("rxdb");
-var rxdb_2 = require("rxdb");
 var server_1 = require("rxdb/plugins/server");
-var MemoryAdapter = require("pouchdb-adapter-memory");
-var dotenv = require("dotenv");
-var express = require("express");
+var MemoryAdapter = __importStar(require("pouchdb-adapter-memory"));
 rxdb_1.addRxPlugin(server_1.RxDBServerPlugin);
 rxdb_1.addRxPlugin(MemoryAdapter);
 dotenv.config();
@@ -49,50 +70,51 @@ var mySchema = {
     version: 0,
     type: "object",
     properties: {
-        key: {
+        todo: {
             type: "string",
-            primary: true
         },
-        value: {
-            type: "string"
-        }
-    }
+        status: {
+            type: "boolean",
+        },
+    },
 };
 (function () { return __awaiter(void 0, void 0, void 0, function () {
     var db, _a, app, server, mainApp;
     return __generator(this, function (_b) {
         switch (_b.label) {
-            case 0: return [4 /*yield*/, rxdb_2.createRxDatabase({
+            case 0: return [4 /*yield*/, rxdb_1.createRxDatabase({
                     name: "mydb",
-                    adapter: "memory"
+                    adapter: "memory",
                 })];
             case 1:
                 db = _b.sent();
                 return [4 /*yield*/, db.collection({
-                        name: "messages",
-                        schema: mySchema
+                        name: "todo",
+                        schema: mySchema,
                     })];
             case 2:
                 _b.sent();
-                return [4 /*yield*/, db.messages.insert({
-                        key: "foo",
-                        value: "bar"
+                return [4 /*yield*/, db.todo.insert({
+                        todo: "Eat",
+                        status: true,
                     })];
             case 3:
                 _b.sent();
                 _a = db.server({
                     startServer: false,
-                    cors: true
+                    cors: true,
+                    pouchdbExpressOptions: {
+                        inMemoryConfig: true,
+                    },
                 }), app = _a.app, server = _a.server;
-                mainApp = express();
+                mainApp = express_1.default();
                 mainApp.use("/", app);
                 mainApp.listen(process.env.PORT, function () {
-                    return console.log("Server listening on port 3000");
+                    return console.log("Server listening on port " + process.env.PORT);
                 });
-                console.log("Server should run now..." + process.env.PORT);
                 return [2 /*return*/];
         }
     });
-}); })()["catch"](function (e) {
+}); })().catch(function (e) {
     console.error("error on custom code", e);
 });
