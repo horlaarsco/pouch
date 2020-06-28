@@ -620,7 +620,7 @@ exit@0.1.2:
   resolved "https://registry.yarnpkg.com/exit/-/exit-0.1.2.tgz#0632638f8d877cc82107d30a0fff1a17cba1cd0c"
   integrity sha1-BjJjj42HfMghB9MKD/8aF8uhzQw=
 
-express-pouchdb@4.2.0:
+express-pouchdb@4.2.0, express-pouchdb@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/express-pouchdb/-/express-pouchdb-4.2.0.tgz#cfcc3f03c8cd5aff87083c7889e8266de41b880f"
   integrity sha512-UHA2q/A+rIEptefwBODTlH42PoaRro7eAnupztaBdoZofTXdaUcDcVZ1/QrwGeewGJLNf6+1Oia7wO4IX+rSew==
@@ -656,7 +656,7 @@ express-pouchdb@4.2.0:
     sanitize-filename "^1.6.1"
     uuid "^3.0.1"
 
-express@^4.14.1:
+express@^4.14.1, express@^4.17.1:
   version "4.17.1"
   resolved "https://registry.yarnpkg.com/express/-/express-4.17.1.tgz#4491fc38605cf51f8629d39c2b5d026f98a4c134"
   integrity sha512-mHJ9O79RqluphRrcw2X/GTh3k9tVv8YcoyY4Kkh4WDMUYKRZUq0h1o0w2rrrxBqM7VoeUVqgb27xlEMXTnYt4g==
@@ -1972,6 +1972,32 @@ pouchdb-wrappers@4.2.0:
   integrity sha512-ADnQKEgWsf2a3qEXj1njP7D1I1OeA0Z+O7OfXN4mK623Re/hvz869Xes8i8oJXscAh6gz/fzjiU6ElbLF6Wd5w==
   dependencies:
     promise-nodify "^1.0.2"
+
+pouchdb@^7.2.1:
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/pouchdb/-/pouchdb-7.2.1.tgz#619e3d5c2463ddd94a4b1bf40d44408c46e9de79"
+  integrity sha512-AoDPdr6tFqj3xs7oiD2oioYj5MMu87c3UemRHZ/p++BwU+ZsKn5jpnL09OvWTLvMvaICGAOufiaUzmM1/KKoKQ==
+  dependencies:
+    abort-controller "3.0.0"
+    argsarray "0.0.1"
+    buffer-from "1.1.0"
+    clone-buffer "1.0.0"
+    double-ended-queue "2.1.0-0"
+    fetch-cookie "0.7.3"
+    immediate "3.0.6"
+    inherits "2.0.4"
+    level "6.0.0"
+    level-codec "9.0.1"
+    level-write-stream "1.0.0"
+    leveldown "5.4.1"
+    levelup "4.1.0"
+    ltgt "2.2.1"
+    node-fetch "2.4.1"
+    readable-stream "1.0.33"
+    spark-md5 "3.0.0"
+    through2 "3.0.1"
+    uuid "3.3.3"
+    vuvuzela "1.0.3"
 
 private@^0.1.6, private@~0.1.5:
   version "0.1.8"
