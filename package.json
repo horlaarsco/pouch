@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "tsc app && node app.js"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +15,9 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-pouchdb": "^4.2.0",
-    "pouchdb": "^7.2.1"
+    "pouchdb": "^7.2.1",
+    "pouchdb-adapter-memory": "^7.2.1",
+    "rxdb": "^9.3.0",
+    "rxjs": "^6.5.5"
   }
 }
